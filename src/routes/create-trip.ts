@@ -13,7 +13,8 @@ export async function createTrip(app: FastifyInstance) {
         startsAt: z.coerce.date(),
         endsAt: z.coerce.date(),
         ownerName: z.string(),
-        ownerEmail: z.string().email()
+        ownerEmail: z.string().email(),
+        emailsToInvite: z.string().email().array()/*.optional()*/,
       }),
       response: {
         201: z.object({
@@ -22,7 +23,7 @@ export async function createTrip(app: FastifyInstance) {
       }
     }
   }, async (req, res) => {
-    const { destination, startsAt, endsAt, ownerName, ownerEmail } = req.body
+    const { destination, startsAt, endsAt, ownerName, ownerEmail, emailsToInvite } = req.body
 
     if (dayjs(startsAt).isBefore(new Date())) 
       throw new Error('Invalid start trip date.')
@@ -34,7 +35,24 @@ export async function createTrip(app: FastifyInstance) {
       data: {
         destination,
         startsAt,
-        endsAt
+        endsAt,
+        participants: {
+          createMany: {
+            data: [
+              {
+                email: ownerEmail.toLowerCase(),
+                name: ownerName,
+                isOwner: true,
+                isConfirmed: true,
+              },
+              ...emailsToInvite.map(email => {
+                return {
+                  email: email.toLowerCase(),
+                }
+              })
+            ]
+          } 
+        }
       }
     })
 
