@@ -1,10 +1,10 @@
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
-import { prisma } from '../lib/prisma'
 import { env } from '../env'
 import { dayjs } from '../lib/dayjs'
 import { resend } from '../lib/mailer'
+import { prisma } from '../lib/prisma'
 
 export async function confirmTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
@@ -58,7 +58,7 @@ export async function confirmTrip(app: FastifyInstance) {
 
       await resend.batch.send(
         trip.participants.map((p) => {
-          const confirmationLink = `${env.API_BASE_URL}/trips/${trip.id}/participants/${p.id}/confirm`
+          const confirmationLink = `${env.API_BASE_URL}/participants/${p.id}/confirm`
 
           return {
             ...baseEmail,
