@@ -4,12 +4,7 @@ import { z } from 'zod'
 import { prisma } from '../lib/prisma'
 import { resend } from '../lib/mailer'
 import { env } from '../env'
-import dayjs from 'dayjs'
-import 'dayjs/locale/pt-br'
-import localizedFormat from 'dayjs/plugin/localizedFormat'
-
-dayjs.locale('pt-br')
-dayjs.extend(localizedFormat)
+import { dayjs } from '../lib/dayjs'
 
 export async function createTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post('/trips', {
@@ -83,7 +78,7 @@ export async function createTrip(app: FastifyInstance) {
           <p></p>
           <p>Caso você não saiba do que se trata esse e-mail, apenas ignore esse e-mail.</p>
         </div>
-      `
+      `.trim()
     })
 
     return res.status(201).send({ tripId: trip.id })
