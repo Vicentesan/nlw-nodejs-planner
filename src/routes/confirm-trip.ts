@@ -5,6 +5,7 @@ import { env } from '../env'
 import { dayjs } from '../lib/dayjs'
 import { resend } from '../lib/mailer'
 import { prisma } from '../lib/prisma'
+import { ClientError } from '../errors/client-error'
 
 export async function confirmTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
@@ -34,7 +35,7 @@ export async function confirmTrip(app: FastifyInstance) {
         },
       })
 
-      if (!trip) throw new Error('Trip not found.')
+      if (!trip) throw new ClientError('Trip not found.')
 
       if (trip.isConfirmed)
         return res.redirect(`http://localhost:3000/trips/${tripId}`)
