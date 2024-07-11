@@ -1,9 +1,13 @@
 import { z } from 'zod'
 
+import { ClientError } from '../errors/client-error'
+
 const envSchema = z.object({
+  PORT: z.coerce.number().default(3333),
   DATABASE_URL: z.string().min(1),
   RESEND_API_KEY: z.string().min(1),
   API_BASE_URL: z.string().url().min(1),
+  WEB_BASE_URL: z.string().url().min(1),
 })
 
 const _env = envSchema.safeParse(process.env)
