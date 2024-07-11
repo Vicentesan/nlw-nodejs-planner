@@ -1,6 +1,9 @@
 import fastify from 'fastify'
 import cors from '@fastify/cors'
-import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod'
+import {
+  serializerCompiler,
+  validatorCompiler,
+} from 'fastify-type-provider-zod'
 import { createTrip } from './routes/create-trip'
 import { confirmTrip } from './routes/confirm-trip'
 import { confirmParticipation } from './routes/confirm-participation'
@@ -24,5 +27,4 @@ app.register(createActivity)
 app.register(fetchActivities)
 app.register(createLink)
 
-app.listen({port: 3333})
-  .then(() => console.log('HTTP server running'))
+app.listen({ port: 3333 }).then(() => console.log('HTTP server running'))

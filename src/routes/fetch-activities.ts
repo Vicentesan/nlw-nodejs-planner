@@ -13,17 +13,17 @@ export async function fetchActivities(app: FastifyInstance) {
         response: {
           200: z.object({
             activities: z
-            .object({
-              date: z.date(),
-              activities: z
-                .object({
-                  id: z.string().uuid(),
-                  title: z.string(),
-                  occursAt: z.date(),
-                })
-                .array(),
-            })
-            .array()
+              .object({
+                date: z.date(),
+                activities: z
+                  .object({
+                    id: z.string().uuid(),
+                    title: z.string(),
+                    occursAt: z.date(),
+                  })
+                  .array(),
+              })
+              .array(),
           }),
         },
       },
@@ -36,7 +36,7 @@ export async function fetchActivities(app: FastifyInstance) {
         include: {
           activities: {
             orderBy: { occursAt: 'asc' },
-          }
+          },
         },
       })
 

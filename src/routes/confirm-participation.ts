@@ -9,7 +9,7 @@ export async function confirmParticipation(app: FastifyInstance) {
     {
       schema: {
         params: z.object({
-          participantId: z.string().uuid()
+          participantId: z.string().uuid(),
         }),
         response: {
           308: z.null(),
@@ -22,14 +22,15 @@ export async function confirmParticipation(app: FastifyInstance) {
       const participant = await prisma.participant.findUnique({
         where: {
           id: participantId,
-        }
+        },
       })
 
-      if (!participant)
-        throw new Error('Participant not found.')
+      if (!participant) throw new Error('Participant not found.')
 
       if (participant.isConfirmed)
-        return res.redirect(`http://localhost:3000/trips/${participant.tripId}`)
+        return res.redirect(
+          `http://localhost:3000/trips/${participant.tripId}`
+        )
 
       await prisma.participant.update({
         where: {
