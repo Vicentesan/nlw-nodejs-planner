@@ -1,12 +1,12 @@
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
-import { z } from 'zod'
+import z from 'zod'
 
-import { env } from '../env'
-import { ClientError } from '../errors/client-error'
-import { dayjs } from '../lib/dayjs'
-import { resend } from '../lib/mailer'
-import { prisma } from '../lib/prisma'
+import { env } from '@/env'
+import { ClientError } from '@/errors/client-error'
+import { dayjs } from '@/lib/dayjs'
+import { resend } from '@/lib/mailer'
+import { prisma } from '@/lib/prisma'
 
 export async function confirmTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(

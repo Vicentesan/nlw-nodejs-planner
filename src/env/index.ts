@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { ClientError } from '../errors/client-error'
+import { ClientError } from '@/errors/client-error'
 
 const envSchema = z.object({
   PORT: z.coerce.number().default(3333),

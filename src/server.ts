@@ -5,7 +5,8 @@ import {
   validatorCompiler,
 } from 'fastify-type-provider-zod'
 
-import { env } from './env'
+import { env } from '@/env'
+
 import { errorHandler } from './error-handler'
 import { confirmParticipation } from './routes/confirm-participation'
 import { confirmTrip } from './routes/confirm-trip'

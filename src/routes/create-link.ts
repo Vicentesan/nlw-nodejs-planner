@@ -1,9 +1,9 @@
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
-import { z } from 'zod'
+import z from 'zod'
 
-import { ClientError } from '../errors/client-error'
-import { prisma } from '../lib/prisma'
+import { ClientError } from '@/errors/client-error'
+import { prisma } from '@/lib/prisma'
 
 export async function createLink(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
