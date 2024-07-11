@@ -11,6 +11,7 @@ import { createActivity } from './routes/create-activity'
 import { fetchActivities } from './routes/fetch-activities'
 import { createLink } from './routes/create-link'
 import { fetchLinks } from './routes/fetch-links'
+import { fetchParticipants } from './routes/fetch-participants'
 
 const app = fastify()
 
@@ -28,5 +29,6 @@ app.register(createActivity)
 app.register(fetchActivities)
 app.register(createLink)
 app.register(fetchLinks)
+app.register(fetchParticipants)
 
 app.listen({ port: 3333 }).then(() => console.log('HTTP server running'))
