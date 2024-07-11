@@ -1,9 +1,9 @@
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
-import { dayjs } from '../lib/dayjs'
-import { prisma } from '../lib/prisma'
+
 import { ClientError } from '../errors/client-error'
+import { prisma } from '../lib/prisma'
 
 export async function fetchLinks(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
@@ -35,7 +35,7 @@ export async function fetchLinks(app: FastifyInstance) {
               id: true,
               title: true,
               url: true,
-            }
+            },
           },
         },
       })
@@ -43,6 +43,6 @@ export async function fetchLinks(app: FastifyInstance) {
       if (!trip) throw new ClientError('Trip not found')
 
       return res.status(200).send({ links: trip.links })
-    }
+    },
   )
 }

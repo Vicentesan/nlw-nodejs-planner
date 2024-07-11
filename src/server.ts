@@ -4,6 +4,8 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from 'fastify-type-provider-zod'
+
+import { errorHandler } from './error-handler'
 import { confirmParticipation } from './routes/confirm-participation'
 import { confirmTrip } from './routes/confirm-trip'
 import { createActivity } from './routes/create-activity'
@@ -13,10 +15,9 @@ import { createTrip } from './routes/create-trip'
 import { fetchActivities } from './routes/fetch-activities'
 import { fetchLinks } from './routes/fetch-links'
 import { fetchParticipants } from './routes/fetch-participants'
+import { getParticipant } from './routes/get-participant'
 import { getTripDetails } from './routes/get-trip-details'
 import { updateTrip } from './routes/update-trip'
-import { getParticipant } from './routes/get-participant'
-import { errorHandler } from './error-handler'
 
 const app = fastify()
 

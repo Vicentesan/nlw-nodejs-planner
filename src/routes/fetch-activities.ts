@@ -1,9 +1,10 @@
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
+
+import { ClientError } from '../errors/client-error'
 import { dayjs } from '../lib/dayjs'
 import { prisma } from '../lib/prisma'
-import { ClientError } from '../errors/client-error'
 
 export async function fetchActivities(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
@@ -50,7 +51,7 @@ export async function fetchActivities(app: FastifyInstance) {
 
       const diffInDaysBetweenTripStartAndEndDates = dayjs(trip.endsAt).diff(
         dayjs(trip.startsAt),
-        'days'
+        'days',
       )
 
       // + 1 because we want to include the start date
@@ -62,12 +63,12 @@ export async function fetchActivities(app: FastifyInstance) {
         return {
           date: date.toDate(),
           activities: trip.activities.filter((a) =>
-            dayjs(a.occursAt).isSame(date, 'day')
+            dayjs(a.occursAt).isSame(date, 'day'),
           ),
         }
       })
 
       return res.status(200).send({ activities })
-    }
+    },
   )
 }

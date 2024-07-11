@@ -1,11 +1,12 @@
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
-import { prisma } from '../lib/prisma'
-import { resend } from '../lib/mailer'
+
 import { env } from '../env'
-import { dayjs } from '../lib/dayjs'
 import { ClientError } from '../errors/client-error'
+import { dayjs } from '../lib/dayjs'
+import { resend } from '../lib/mailer'
+import { prisma } from '../lib/prisma'
 
 export async function createTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -93,6 +94,6 @@ export async function createTrip(app: FastifyInstance) {
       })
 
       return res.status(201).send({ tripId: trip.id })
-    }
+    },
   )
 }

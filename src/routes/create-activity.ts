@@ -1,9 +1,10 @@
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
+
+import { ClientError } from '../errors/client-error'
 import { dayjs } from '../lib/dayjs'
 import { prisma } from '../lib/prisma'
-import { ClientError } from '../errors/client-error'
 
 export async function createActivity(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -47,6 +48,6 @@ export async function createActivity(app: FastifyInstance) {
       })
 
       return res.status(201).send({ activityId: activity.id })
-    }
+    },
   )
 }

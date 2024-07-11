@@ -1,11 +1,12 @@
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
-import { prisma } from '../lib/prisma'
-import { dayjs } from '../lib/dayjs'
+
 import { env } from '../env'
-import { resend } from '../lib/mailer'
 import { ClientError } from '../errors/client-error'
+import { dayjs } from '../lib/dayjs'
+import { resend } from '../lib/mailer'
+import { prisma } from '../lib/prisma'
 
 export async function createInvite(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -63,6 +64,6 @@ export async function createInvite(app: FastifyInstance) {
       })
 
       return res.status(204).send()
-    }
+    },
   )
 }
