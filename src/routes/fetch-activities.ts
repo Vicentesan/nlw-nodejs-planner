@@ -35,6 +35,11 @@ export async function fetchActivities(app: FastifyInstance) {
         where: { id: tripId },
         include: {
           activities: {
+            select: {
+              id: true,
+              title: true,
+              occursAt: true,
+            },
             orderBy: { occursAt: 'asc' },
           },
         },
@@ -61,7 +66,7 @@ export async function fetchActivities(app: FastifyInstance) {
         }
       })
 
-      return res.status(201).send({ activities })
+      return res.status(200).send({ activities })
     }
   )
 }

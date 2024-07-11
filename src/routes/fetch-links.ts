@@ -29,13 +29,19 @@ export async function fetchLinks(app: FastifyInstance) {
       const trip = await prisma.trip.findUnique({
         where: { id: tripId },
         include: {
-          links: true,
+          links: {
+            select: {
+              id: true,
+              title: true,
+              url: true,
+            }
+          },
         },
       })
 
       if (!trip) throw new Error('Trip not found')
 
-      return res.status(201).send({ links: trip.links })
+      return res.status(200).send({ links: trip.links })
     }
   )
 }
