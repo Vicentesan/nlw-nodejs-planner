@@ -60,7 +60,7 @@ export async function confirmTrip(app: FastifyInstance) {
 
       await resend.batch.send(
         trip.participants.map((p) => {
-          const confirmationLink = `${env.API_BASE_URL}/participants/${p.id}/confirm`
+          const confirmationLink = `${env.WEB_BASE_URL}/trips/${tripId}/participants/${p.id}/confirm`
 
           return {
             ...baseEmail,
